@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 Aetheria | AI Smart Academic Assistant
 
 Aetheria is an elite, glassmorphic, and production-grade smart academic companion designed to accelerate student learning, active recall, and productivity. Built as a single-page dashboard with a modular Python/Flask backend and a premium modern UI, it links directly to the Google Gemini API to power 5 custom-tailored academic submodules.
@@ -123,3 +124,7 @@ The server operates a clean JSON-API interface:
 - `POST /api/study-plan` - Requests a detailed timeline schedule.
 - `POST /api/math/solve` - Submits a mathematical problem (text, scan, or worksheet) for multi-level step-by-step solutions.
 - `POST /api/analytics/advisor` - Compiles historical analytics into an Academic Dean advising report.
+=======
+# AI-Smart-Academic-Assistant
+Aetheria is a production-grade AI Smart Academic Assistant built with Flask and Gemini API. Features include AI tutoring, smart summarization, quiz generation, flashcards, adaptive study planning, math solving, analytics, and a premium glassmorphic UI designed to enhance student learning and productivity.
+>>>>>>> 80ce1354c7afde51d0f6063eb6ba01edb1bcd757
