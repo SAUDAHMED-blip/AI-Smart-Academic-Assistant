@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSA AI Academy | AI Smart Academic Assistant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for Code Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- KaTeX for Mathematics Equation Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Decorative Blobs for Glassmorphism -->
+    <div class="bg-glow blob-1"></div>
+    <div class="bg-glow blob-2"></div>
+    <div class="bg-glow blob-3"></div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span>HSA AI Academy</span>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-tab="dashboard" id="btn-tab-dashboard">
+                    <i class="fa-solid fa-cubes"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="menu-item" data-tab="qa" id="btn-tab-qa">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>Q&A Assistant</span>
+                </button>
+                <button class="menu-item" data-tab="summarizer" id="btn-tab-summarizer">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span>Summarizer</span>
+                </button>
+                <button class="menu-item" data-tab="quiz" id="btn-tab-quiz">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Quiz Generator</span>
+                </button>
+                <button class="menu-item" data-tab="flashcard" id="btn-tab-flashcard">
+                    <i class="fa-solid fa-rectangle-list"></i>
+                    <span>Flashcards</span>
+                </button>
+                <button class="menu-item" data-tab="planner" id="btn-tab-planner">
+                    <i class="fa-solid fa-calendar-alt"></i>
+                    <span>Study Planner</span>
+                </button>
+                <button class="menu-item" data-tab="math" id="btn-tab-math">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>AI Math Solver</span>
+                </button>
+                <button class="menu-item" data-tab="analytics" id="btn-tab-analytics">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Tutor Analytics</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="menu-item settings-btn" data-tab="settings" id="btn-tab-settings">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Tutor Settings</span>
+                </button>
+                <div class="api-status-badge" id="api-status-badge">
+                    <span class="status-dot pulsing-orange"></span>
+                    <span class="status-text">Setup Required</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header Bar -->
+            <header class="top-bar">
+                <div class="header-search">
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-profile">
+                    <div class="model-badge" id="current-model-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Gemini 1.5 Flash</span>
+                    </div>
+                    <div class="date-display" id="date-display">May 18, 2026</div>
+                </div>
+            </header>
+
+            <!-- Inner Views Container -->
+            <div class="view-container">
+                
+                <!-- 1. DASHBOARD VIEW -->
+                <section class="view-pane active" id="view-dashboard">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h2>Welcome back, Scholar! 🌟</h2>
+                            <p>Unlock the future of academic learning. Summarize papers, generate interactive quizzes, or design adaptive study routines instantly.</p>
+                        </div>
+                        <div class="welcome-action">
+                            <button class="btn btn-primary" onclick="switchTab('qa')">
+                                <i class="fa-solid fa-rocket"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="section-title">
+                        <h3>Smart Modules</h3>
+                        <p>Select an AI agent below to accelerate your studies</p>
+                    </div>
+
+                    <div class="module-grid">
+                        <div class="module-card card-qa" onclick="switchTab('qa')">
+                            <div class="module-icon"><i class="fa-solid fa-comment-dots"></i></div>
+                            <h4>Q&A Tutor</h4>
+                            <p>Ask complex questions, get detailed derivations, and receive custom tutorials.</p>
+                            <span class="module-link">Chat Now <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <div class="module-card card-summarizer" onclick="switchTab('summarizer')">
+                            <div class="module-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                            <h4>Smart Summarizer</h4>
+                            <p>Paste notes or drag files to generate outline summaries, simple translations, or study guides.</p>
+                            <span class="module-link">Summarize <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <div class="module-card card-quiz" onclick="switchTab('quiz')">
+                            <div class="module-icon"><i class="fa-solid fa-brain"></i></div>
+                            <h4>Quiz Generator</h4>
+                            <p>Create challenging multiple-choice quizzes with instant interactive grading and explanations.</p>
+                            <span class="module-link">Generate <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <div class="module-card card-flashcards" onclick="switchTab('flashcard')">
+                            <div class="module-icon"><i class="fa-solid fa-rectangle-list"></i></div>
+                            <h4>Flashcard Decks</h4>
+                            <p>Convert reading materials into gorgeous study cards featuring full 3D flip-testing layouts.</p>
+                            <span class="module-link">Create Deck <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                        <div class="module-card card-planner" onclick="switchTab('planner')">
+                            <div class="module-icon"><i class="fa-solid fa-calendar-alt"></i></div>
+                            <h4>Study Planner</h4>
+                            <p>Generate highly-actionable roadmaps with checklists, time budgeting, and priority rankings.</p>
+                            <span class="module-link">Build Schedule <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Q&A ASSISTANT VIEW -->
+                <section class="view-pane" id="view-qa">
+                    <div class="chat-workspace">
+                        <!-- Left pane: Suggested Prompts -->
+                        <div class="chat-sidebar">
+                            <h4>Suggested Topics</h4>
+                            <div class="suggested-prompts-list">
+                                <button class="suggested-btn" data-prompt="Explain Quantum Computing in simple terms using an analogy.">
+                                    <i class="fa-solid fa-atom"></i> Quantum Analogy
+                                </button>
+                                <button class="suggested-btn" data-prompt="Derive the Quadratic Formula step-by-step, explaining each mathematical logic.">
+                                    <i class="fa-solid fa-square-root-variable"></i> Quadratic Formula Derivation
+                                </button>
+                                <button class="suggested-btn" data-prompt="Analyze the primary causes of the French Revolution in a table format.">
+                                    <i class="fa-solid fa-landmark"></i> French Revolution Causes
+                                </button>
+                                <button class="suggested-btn" data-prompt="Explain the difference between SQL and NoSQL databases with code examples.">
+                                    <i class="fa-solid fa-database"></i> SQL vs NoSQL
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right pane: Chat Area -->
+                        <div class="chat-interface">
+                            <div class="chat-messages-container" id="chat-messages">
+                                <div class="message system">
+                                    <div class="message-content">
+                                        <p><strong>HSA AI Academy Q&A Tutor:</strong> Hello! I am your AI academic tutor. Ask me any question, paste a problem block, or ask for a detailed lesson. I am here to help you study!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <div class="image-preview-bubble" id="chat-image-preview" style="display: none;">
+                                    <img src="" id="chat-preview-img" alt="Upload Preview">
+                                    <button class="btn-remove-preview" id="btn-remove-preview" title="Remove Image"><i class="fa-solid fa-times"></i></button>
+                                </div>
+                                <input type="file" id="chat-image-input" accept="image/*" style="display: none;">
+                                <button class="btn-chat-action" id="btn-attach-image" title="Attach Screenshot/Image">
+                                    <i class="fa-solid fa-paperclip"></i>
+                                </button>
+                                <textarea id="chat-input" placeholder="Ask your academic question here (e.g. explain photosynthesis, solve a math limit, etc.)..." rows="2"></textarea>
+                                <button class="btn btn-primary btn-round" id="btn-send-chat">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. SUMMARIZER VIEW -->
+                <section class="view-pane" id="view-summarizer">
+                    <div class="grid-two-columns">
+                        <!-- Left: Input Control -->
+                        <div class="glass-panel">
+                            <h3>Summarize Material</h3>
+                            <p class="panel-subtitle">Paste your textbook, research paper, or notes below</p>
+                            
+                            <!-- Universal File Upload Area -->
+                            <div class="file-drop-zone" id="file-drop-zone">
+                                <input type="file" id="file-upload-input" accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.csv,.txt,.md,.json" style="display: none;">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Drag & drop any file here or <span class="highlight">browse</span></p>
+                                <span class="file-info" id="file-info-text">PDF · Word · PowerPoint · Excel · CSV · TXT · MD · JSON</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="summarize-text-input">Or Paste Plain Text:</label>
+                                <textarea id="summarize-text-input" placeholder="Paste your study materials or document text here..." rows="10"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="summarize-format">Output Format:</label>
+                                    <select id="summarize-format" class="form-control">
+                                        <option value="key_takeaways">Key Takeaways (Outline)</option>
+                                        <option value="bullet_points">Comprehensive Bullet Points</option>
+                                        <option value="paragraph">Summary Paragraph</option>
+                                        <option value="study_guide">Comprehensive Study Guide</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="summarize-style">Explanation Style:</label>
+                                    <select id="summarize-style" class="form-control">
+                                        <option value="academic">Standard Academic</option>
+                                        <option value="eli5">ELI5 (Explain Like I'm 5)</option>
+                                        <option value="technical">Highly Technical & Formal</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" id="btn-summarize">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Summary
+                            </button>
+                        </div>
+
+                        <!-- Right: Output -->
+                        <div class="glass-panel output-panel">
+                            <div class="panel-header-actions">
+                                <h3>Generated Summary</h3>
+                                <div class="actions-group">
+                                    <button class="btn-action" id="btn-copy-summary" title="Copy Summary"><i class="fa-solid fa-copy"></i></button>
+                                    <button class="btn-action" id="btn-download-summary" title="Download TXT"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <div class="output-content markdown-body" id="summarizer-output">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-file-alt"></i>
+                                    <p>Your generated summary will appear here. Select options and click "Generate Summary" to begin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. QUIZ GENERATOR VIEW -->
+                <section class="view-pane" id="view-quiz">
+                    <div class="grid-two-columns">
+                        <!-- Left: Input Control -->
+                        <div class="glass-panel" id="quiz-setup-panel">
+                            <h3>Generate MCQ Quiz</h3>
+                            <p class="panel-subtitle">Create custom assessments to check your understanding</p>
+
+                            <!-- Universal File Upload for Quiz -->
+                            <div class="file-drop-zone file-drop-zone-sm" id="quiz-file-drop-zone">
+                                <input type="file" id="quiz-file-input" accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.csv,.txt,.md,.json" style="display: none;">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <p>Upload a file or <span class="highlight">browse</span></p>
+                                <span class="file-info" id="quiz-file-info">PDF · Word · PowerPoint · Excel · CSV · TXT</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quiz-topic">Or Type Topic / Paste Text:</label>
+                                <textarea id="quiz-topic" placeholder="e.g. Data Structures and Algorithms, Mitochondria functions, or paste a textbook chapter..." rows="5"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="quiz-count">Number of MCQs:</label>
+                                    <select id="quiz-count" class="form-control">
+                                        <option value="3">3 Questions</option>
+                                        <option value="5" selected>5 Questions</option>
+                                        <option value="10">10 Questions</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="quiz-difficulty">Difficulty Level:</label>
+                                    <select id="quiz-difficulty" class="form-control">
+                                        <option value="easy">Easy (Fundamentals)</option>
+                                        <option value="medium" selected>Medium (Standard)</option>
+                                        <option value="hard">Hard (Advanced Application)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" id="btn-generate-quiz">
+                                <i class="fa-solid fa-brain"></i> Generate MCQ Quiz
+                            </button>
+                        </div>
+
+                        <!-- Right: Interactive Quiz Interface -->
+                        <div class="glass-panel" id="quiz-workspace-panel">
+                            <div class="empty-state" id="quiz-empty-state">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <p>Ready to test your knowledge? Enter a topic on the left and click "Generate MCQ Quiz".</p>
+                            </div>
+
+                            <!-- Interactive Quiz Play Screen (hidden initially) -->
+                            <div class="quiz-play-screen" id="quiz-play-screen" style="display: none;">
+                                <div class="quiz-header">
+                                    <h4 id="quiz-title-display">Interactive Quiz</h4>
+                                    <span class="quiz-progress-badge" id="quiz-progress">Question 1 of 5</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" id="quiz-progress-bar" style="width: 20%;"></div>
+                                </div>
+
+                                <div class="quiz-question-container">
+                                    <h3 class="quiz-question" id="quiz-question-text">Loading question text...</h3>
+                                    
+                                    <div class="quiz-options-list" id="quiz-options-container">
+                                        <!-- Dynamically populated options -->
+                                    </div>
+
+                                    <div class="quiz-feedback-box" id="quiz-feedback" style="display: none;">
+                                        <div class="feedback-icon"><i class="fa-solid fa-circle-info"></i></div>
+                                        <div class="feedback-content">
+                                            <h5>Tutor Explanation:</h5>
+                                            <p id="quiz-explanation-text">Explanation content goes here.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="quiz-footer-nav">
+                                    <span id="quiz-score-instant">Score: 0 / 0</span>
+                                    <button class="btn btn-primary" id="btn-quiz-next" disabled>
+                                        Next Question <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Results Screen (hidden initially) -->
+                            <div class="quiz-results-screen" id="quiz-results-screen" style="display: none; text-align: center;">
+                                <i class="fa-solid fa-award award-icon"></i>
+                                <h2>Quiz Completed!</h2>
+                                <p class="results-subtitle" id="quiz-results-subtitle">Excellent attempt! Here is your final report card.</p>
+                                
+                                <div class="score-ring">
+                                    <span class="score-number" id="quiz-results-score">4/5</span>
+                                    <span class="score-percentage" id="quiz-results-pct">80%</span>
+                                </div>
+
+                                <div class="results-actions">
+                                    <button class="btn btn-primary" id="btn-quiz-restart">
+                                        <i class="fa-solid fa-rotate-left"></i> Retake Quiz
+                                    </button>
+                                    <button class="btn btn-secondary" id="btn-quiz-new">
+                                        <i class="fa-solid fa-plus"></i> New Quiz Topic
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. FLASHCARDS VIEW -->
+                <section class="view-pane" id="view-flashcard">
+                    <div class="grid-two-columns">
+                        <!-- Left: Input Control -->
+                        <div class="glass-panel" id="flashcard-setup-panel">
+                            <h3>Flashcard Maker</h3>
+                            <p class="panel-subtitle">Convert key materials into active recall flashcards</p>
+
+                            <!-- Universal File Upload for Flashcards -->
+                            <div class="file-drop-zone file-drop-zone-sm" id="flashcard-file-drop-zone">
+                                <input type="file" id="flashcard-file-input" accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.csv,.txt,.md,.json" style="display: none;">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <p>Upload a file or <span class="highlight">browse</span></p>
+                                <span class="file-info" id="flashcard-file-info">PDF · Word · PowerPoint · Excel · CSV · TXT</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="flashcard-topic">Or Type Topic / Paste Text:</label>
+                                <textarea id="flashcard-topic" placeholder="e.g. Biology terms, Python concepts, Chemistry formulas, or paste your lecture slides text..." rows="5"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="flashcard-count">Number of Cards:</label>
+                                <select id="flashcard-count" class="form-control">
+                                    <option value="5">5 Cards</option>
+                                    <option value="10" selected>10 Cards</option>
+                                    <option value="15">15 Cards</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" id="btn-generate-flashcards">
+                                <i class="fa-solid fa-rectangle-list"></i> Create Flashcard Deck
+                            </button>
+                        </div>
+
+                        <!-- Right: Interactive Flashcards Workspace -->
+                        <div class="glass-panel" id="flashcard-workspace-panel">
+                            <div class="empty-state" id="flashcard-empty-state">
+                                <i class="fa-solid fa-object-group"></i>
+                                <p>Ready to memorize? Generate cards on the left to start active flip testing.</p>
+                            </div>
+
+                            <!-- Play Flashcards Screen -->
+                            <div class="flashcard-play-screen" id="flashcard-play-screen" style="display: none;">
+                                <div class="deck-header">
+                                    <h4 id="deck-title-display">Biology Flashcards</h4>
+                                    <span class="card-progress-badge" id="card-progress">Card 1 of 10</span>
+                                </div>
+
+                                <!-- Card Flipping Component -->
+                                <div class="flashcard-container" id="interactive-flashcard">
+                                    <div class="flashcard-inner">
+                                        <div class="flashcard-front">
+                                            <span class="card-hint-text">FRONT (CLICK TO FLIP)</span>
+                                            <div class="card-text-container">
+                                                <h3 id="card-front-content">Term or Question here?</h3>
+                                            </div>
+                                            <div class="card-footer-tip"><i class="fa-solid fa-arrows-spin"></i> Click card to reveal explanation</div>
+                                        </div>
+                                        <div class="flashcard-back">
+                                            <span class="card-hint-text">BACK (CLICK TO FLIP)</span>
+                                            <div class="card-text-container">
+                                                <h3 id="card-back-content">Answer or explanation content goes here.</h3>
+                                                <p class="card-context-text" id="card-context-content">Context and helper details...</p>
+                                            </div>
+                                            <div class="card-footer-tip"><i class="fa-solid fa-arrows-spin"></i> Click card to flip back</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="deck-scoring-bar">
+                                    <p>Self Evaluation (Did you recall this correctly?):</p>
+                                    <div class="scoring-buttons">
+                                        <button class="btn btn-danger col-5" id="btn-card-wrong">
+                                            <i class="fa-solid fa-times-circle"></i> Needs Review
+                                        </button>
+                                        <button class="btn btn-success col-5" id="btn-card-correct">
+                                            <i class="fa-solid fa-check-circle"></i> Got It!
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="deck-footer-nav">
+                                    <button class="btn-action" id="btn-card-prev"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+                                    <span id="deck-score-counter">Recall: 0/0 (0%)</span>
+                                    <button class="btn-action" id="btn-card-next">Next <i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Flashcards Summary Screen -->
+                            <div class="deck-summary-screen" id="deck-summary-screen" style="display: none; text-align: center;">
+                                <i class="fa-solid fa-trophy award-icon" style="color: #ffd700;"></i>
+                                <h2>Deck Finished!</h2>
+                                <p class="results-subtitle">Review complete. Here is your memory performance.</p>
+                                
+                                <div class="score-ring" style="border-color: #ffd700;">
+                                    <span class="score-number" id="deck-results-score">8/10</span>
+                                    <span class="score-percentage" id="deck-results-pct">80% Correct</span>
+                                </div>
+
+                                <div class="results-actions">
+                                    <button class="btn btn-primary" id="btn-deck-restart">
+                                        <i class="fa-solid fa-arrow-rotate-left"></i> Study Deck Again
+                                    </button>
+                                    <button class="btn btn-secondary" id="btn-deck-new">
+                                        <i class="fa-solid fa-plus"></i> New Flashcard Topic
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. STUDY PLANNER VIEW -->
+                <section class="view-pane" id="view-planner">
+                    <div class="grid-two-columns">
+                        <!-- Left: Input Control -->
+                        <div class="glass-panel" id="planner-setup-panel">
+                            <h3>Adaptive Study Planner</h3>
+                            <p class="panel-subtitle">Create a personalized roadmap to master your subjects</p>
+
+                            <!-- Universal File Upload for Planner -->
+                            <div class="file-drop-zone file-drop-zone-sm" id="planner-file-drop-zone">
+                                <input type="file" id="planner-file-input" accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.csv,.txt,.md,.json" style="display: none;">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <p>Upload syllabus/notes or <span class="highlight">browse</span></p>
+                                <span class="file-info" id="planner-file-info">PDF · Word · PowerPoint · Excel · CSV · TXT</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="planner-topic">Subject or Goal to Master:</label>
+                                <input type="text" id="planner-topic" class="form-control" placeholder="e.g. Master Organic Chemistry, Prepare for Machine Learning Exam...">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="planner-timeframe">Target Timeframe:</label>
+                                    <select id="planner-timeframe" class="form-control">
+                                        <option value="1 week">1 Week (Sprint Study)</option>
+                                        <option value="2 weeks">2 Weeks (Intermediate pace)</option>
+                                        <option value="4 weeks">4 Weeks (Thorough mastercourse)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="planner-hours">Study Hours/Day:</label>
+                                    <select id="planner-hours" class="form-control">
+                                        <option value="1">1 Hour per day</option>
+                                        <option value="2" selected>2 Hours per day</option>
+                                        <option value="4">4 Hours per day</option>
+                                        <option value="6">6 Hours per day</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="planner-level">Your Proficiency Level:</label>
+                                <select id="planner-level" class="form-control">
+                                    <option value="beginner">Beginner (No prior exposure)</option>
+                                    <option value="intermediate" selected>Intermediate (Basic understanding)</option>
+                                    <option value="advanced">Advanced (Deepen expertise)</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" id="btn-generate-planner">
+                                <i class="fa-solid fa-calendar-alt"></i> Construct Study Plan
+                            </button>
+                        </div>
+
+                        <!-- Right: Interactive Plan Viewer -->
+                        <div class="glass-panel" id="planner-workspace-panel">
+                            <div class="empty-state" id="planner-empty-state">
+                                <i class="fa-solid fa-route"></i>
+                                <p>Get organized! Fill out the schedule parameters and click "Construct Study Plan" to lay out your learning timeline.</p>
+                            </div>
+
+                            <!-- Generated Study Plan Screen -->
+                            <div class="planner-display-screen" id="planner-display-screen" style="display: none;">
+                                <div class="plan-header">
+                                    <div>
+                                        <h3 id="plan-title-display">Organic Chemistry Sprint</h3>
+                                        <p class="plan-summary-text" id="plan-summary-display">Encouraging summary goes here.</p>
+                                    </div>
+                                    <button class="btn-action" id="btn-download-plan" title="Download Planner"><i class="fa-solid fa-download"></i></button>
+                                </div>
+
+                                <div class="plan-workspace-container">
+                                    <!-- Sidebar tabs for Weeks -->
+                                    <div class="plan-weeks-sidebar" id="plan-weeks-container">
+                                        <!-- Dynamically populated weeks -->
+                                    </div>
+
+                                    <!-- Day Timeline List -->
+                                    <div class="plan-days-timeline" id="plan-days-container">
+                                        <!-- Dynamically populated days -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6.4. AI MATH QUESTION SOLVER VIEW -->
+                <section class="view-pane" id="view-math">
+                    <div class="math-solver-grid">
+                        
+                        <!-- Left Workspace: Inputs Panel -->
+                        <div class="math-control-panel glass-panel">
+                            <div class="panel-header">
+                                <i class="fa-solid fa-calculator text-primary"></i>
+                                <div>
+                                    <h3>Math Tutor Workspace</h3>
+                                    <p>Select your input method to get started</p>
+                                </div>
+                            </div>
+
+                            <!-- Input Method Navigation Tabs -->
+                            <div class="math-input-tabs">
+                                <button class="math-tab-btn active" data-input="text">
+                                    <i class="fa-solid fa-keyboard"></i> Type Equation
+                                </button>
+                                <button class="math-tab-btn" data-input="image">
+                                    <i class="fa-solid fa-camera"></i> Scan Image
+                                </button>
+                                <button class="math-tab-btn" data-input="document">
+                                    <i class="fa-solid fa-file-invoice"></i> Import Document
+                                </button>
+                            </div>
+
+                            <!-- Input Areas -->
+                            <div class="math-input-containers">
+                                <!-- 1. Text Input Container -->
+                                <div class="math-input-pane active" id="math-input-text">
+                                    <textarea id="math-text-input" placeholder="Type your mathematical question here... (e.g., Solve x^2 - 5x + 6 = 0, or Integrate 3x^2 dx, or find the limit as x goes to infinity...)"></textarea>
+                                </div>
+
+                                <!-- 2. Image Upload Container -->
+                                <div class="math-input-pane" id="math-input-image">
+                                    <div class="file-drop-zone" id="math-image-drop-zone">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                        <p>Drag & drop or click to upload a photo of your math problem</p>
+                                        <small class="form-help">Supports PNG, JPG, JPEG (handwritten or printed)</small>
+                                        <input type="file" id="math-image-input" accept="image/*" style="display: none;">
+                                    </div>
+                                    <div class="image-preview-container" id="math-image-preview-container" style="display: none;">
+                                        <img id="math-image-preview" src="" alt="Math problem scan">
+                                        <button class="btn-remove-preview" id="btn-remove-math-image"><i class="fa-solid fa-trash"></i> Remove Image</button>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Document Upload Container -->
+                                <div class="math-input-pane" id="math-input-document">
+                                    <div class="file-drop-zone" id="math-doc-drop-zone">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                        <p>Drag & drop or click to upload a PDF or text worksheet</p>
+                                        <small class="form-help">Supports PDF, DOCX, TXT, MD</small>
+                                        <input type="file" id="math-doc-input" accept=".pdf,.docx,.doc,.txt,.md" style="display: none;">
+                                    </div>
+                                    <div class="math-doc-info" id="math-doc-info" style="display: none;">
+                                        <i class="fa-solid fa-file-circle-check text-success"></i>
+                                        <span id="math-doc-name">worksheet.pdf</span>
+                                        <button class="btn-remove-preview" id="btn-remove-math-doc"><i class="fa-solid fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Model Selector & Solve Trigger -->
+                            <div class="math-actions-bar">
+                                <div class="model-select-wrapper">
+                                    <label for="math-model-select">Intelligence Level:</label>
+                                    <select id="math-model-select" class="form-select">
+                                        <option value="gemini-2.5-flash">Gemini 2.5 Flash (Super Fast)</option>
+                                        <option value="gemini-2.5-pro">Gemini 2.5 Pro (Ultra Reasoning)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary w-100" id="btn-solve-math">
+                                    <i class="fa-solid fa-brain"></i> Solve Math Problem
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Workspace: Output Display Panel -->
+                        <div class="math-output-panel glass-panel">
+                            <!-- A. Empty State -->
+                            <div class="empty-state" id="math-empty-state">
+                                <i class="fa-solid fa-square-root-variable"></i>
+                                <h3>AI Math Tutor Output</h3>
+                                <p>Type a question or upload a scan/document on the left, and our advanced AI Tutor will generate a step-by-step interactive explanation here.</p>
+                            </div>
+
+                            <!-- B. Loading State -->
+                            <div class="empty-state" id="math-loading-state" style="display: none;">
+                                <i class="fa-solid fa-compass-drafting fa-spin text-primary"></i>
+                                <h3>AI Tutor Analyzing & Solving...</h3>
+                                <p>Transcribing your question, performing mathematical deductions, and writing tailored beginner and advanced explanations. This will take a few seconds...</p>
+                            </div>
+
+                            <!-- C. Solution Display Screen -->
+                            <div class="math-solution-screen" id="math-solution-screen" style="display: none;">
+                                <!-- Transcribed Question Header -->
+                                <div class="math-transcribed-card">
+                                    <span class="badge-title">TRANSCRIBED PROBLEM</span>
+                                    <div class="extracted-equation" id="math-extracted-question"></div>
+                                </div>
+
+                                <!-- Final Answer Card -->
+                                <div class="math-answer-card">
+                                    <div class="answer-left">
+                                        <span class="badge-title bg-success-dim text-success">📌 FINAL ANSWER</span>
+                                        <h2 class="final-answer-text" id="math-final-answer"></h2>
+                                    </div>
+                                    <button class="btn-action" id="btn-copy-math-answer" title="Copy Answer"><i class="fa-solid fa-copy"></i></button>
+                                </div>
+
+                                <!-- Tabs for Levels of Explanation -->
+                                <div class="math-explanation-tabs">
+                                    <button class="explanation-tab-btn active" data-ex="steps">
+                                        <i class="fa-solid fa-list-ol"></i> Step-by-Step
+                                    </button>
+                                    <button class="explanation-tab-btn" data-ex="beginner">
+                                        <i class="fa-solid fa-graduation-cap"></i> Easy Explanation
+                                    </button>
+                                    <button class="explanation-tab-btn" data-ex="advanced">
+                                        <i class="fa-solid fa-gears"></i> Core Principles
+                                    </button>
+                                    <button class="explanation-tab-btn" data-ex="tutor">
+                                        <i class="fa-solid fa-chalkboard-user"></i> Tutor Advice
+                                    </button>
+                                </div>
+
+                                <!-- Explanation Panes -->
+                                <div class="math-explanation-content">
+                                    <!-- 1. Steps Pane -->
+                                    <div class="explanation-pane active" id="math-ex-steps">
+                                        <div class="math-timeline" id="math-steps-container">
+                                            <!-- Dynamically populated steps -->
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Easy Explanation Pane -->
+                                    <div class="explanation-pane" id="math-ex-beginner">
+                                        <div class="rich-text-container" id="math-beginner-text"></div>
+                                    </div>
+
+                                    <!-- 3. Advanced Principles Pane -->
+                                    <div class="explanation-pane" id="math-ex-advanced">
+                                        <div class="rich-text-container" id="math-advanced-text"></div>
+                                    </div>
+
+                                    <!-- 4. Tutor Advice Pane -->
+                                    <div class="explanation-pane" id="math-ex-tutor">
+                                        <div class="tutor-callout-box">
+                                            <div class="tutor-avatar"><i class="fa-solid fa-graduation-cap"></i></div>
+                                            <div class="tutor-speech" id="math-tutor-commentary"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 6.5. DYNAMIC TUTOR ANALYTICS VIEW -->
+                <section class="view-pane" id="view-analytics">
+                    <div class="analytics-dashboard-grid">
+                        
+                        <!-- Top Row: Metric Stats Cards -->
+                        <div class="metrics-row">
+                            <div class="metric-card glass-panel">
+                                <i class="fa-solid fa-gamepad"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value" id="stats-quizzes-taken">0</span>
+                                    <span class="metric-label">Quizzes Completed</span>
+                                </div>
+                            </div>
+                            <div class="metric-card glass-panel">
+                                <i class="fa-solid fa-star"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value" id="stats-avg-quiz-score">0%</span>
+                                    <span class="metric-label">Avg Quiz Score</span>
+                                </div>
+                            </div>
+                            <div class="metric-card glass-panel">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value" id="stats-cards-reviewed">0</span>
+                                    <span class="metric-label">Cards Reviewed</span>
+                                </div>
+                            </div>
+                            <div class="metric-card glass-panel">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <div class="metric-info">
+                                    <span class="metric-value" id="stats-retention-rate">0%</span>
+                                    <span class="metric-label">Mastered Rate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Row: Interactive Analytics Charts -->
+                        <div class="analytics-panels-row">
+                            <!-- Left: Performance Chart -->
+                            <div class="glass-panel chart-panel">
+                                <h3>Subject Mastery & Accuracy</h3>
+                                <p class="panel-subtitle">Performance breakdown by study topic</p>
+                                <div class="chart-canvas-wrapper">
+                                    <canvas id="accuracy-radar-chart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Right: Study Consistency Time Chart -->
+                            <div class="glass-panel chart-panel">
+                                <h3>Study Consistency</h3>
+                                <p class="panel-subtitle">Daily quiz and review activities logged</p>
+                                <div class="chart-canvas-wrapper">
+                                    <canvas id="activity-trend-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row: AI Academic Advisor Report -->
+                        <div class="glass-panel advisor-panel">
+                            <div class="advisor-header">
+                                <i class="fa-solid fa-user-tie"></i>
+                                <div>
+                                    <h3>AI Academic Advisor Insights</h3>
+                                    <p class="panel-subtitle">Personalized feedback & memory retention recommendations</p>
+                                </div>
+                            </div>
+                            <div class="advisor-report-content" id="advisor-report-text">
+                                <div class="advisor-empty-state">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                    <p>Gathering performance data to compile your personal advisor report. Take a quiz or review some flashcards to generate insights...</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" id="btn-refresh-advisor" style="margin-top: 15px;">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Advisor Insights
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 7. TUTOR SETTINGS VIEW -->
+                <section class="view-pane" id="view-settings">
+                    <div class="glass-panel max-width-600">
+                        <h3>Tutor Setup & Model Selection</h3>
+                        <p class="panel-subtitle">Configure your Gemini API settings to power HSA AI Academy assistants</p>
+                        
+                        <div class="form-group">
+                            <label for="settings-api-key">Gemini API Key:</label>
+                            <div class="input-password-wrapper">
+                                <input type="password" id="settings-api-key" class="form-control" placeholder="Enter your Gemini API key (AIzaSy...)">
+                                <button type="button" class="btn-toggle-password" id="btn-toggle-key"><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                            <small class="form-help">Your API key is saved locally in config.json and is never shared externally.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="settings-model">Default LLM Model:</label>
+                            <select id="settings-model" class="form-control">
+                                <option value="gemini-2.5-flash" selected>Gemini 2.5 Flash (Recommended - Fastest & Smartest)</option>
+                                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Elite Academic Model)</option>
+                                <option value="gemini-2.0-flash">Gemini 2.0 Flash (Ultra Responsive)</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-status-box" id="settings-status-box">
+                            <div class="status-indicator">
+                                <span class="status-badge-dot bg-pulsing-orange" id="settings-badge-dot"></span>
+                                <span class="status-badge-text" id="settings-badge-text">Not Configured</span>
+                            </div>
+                            <p class="status-description" id="settings-status-desc">Please insert your Gemini API Key to activate the academic assistants.</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="btn-save-settings">
+                            <i class="fa-solid fa-shield-halved"></i> Verify & Save Key
+                        </button>
+
+                        <div class="api-guide-section">
+                            <h4>🔑 How to get a free Gemini API Key?</h4>
+                            <ol>
+                                <li>Navigate to the <a href="https://aistudio.google.com/" target="_blank" class="accent-link">Google AI Studio <i class="fa-solid fa-arrow-up-right-from-square"></i></a>.</li>
+                                <li>Sign in with your Google Account.</li>
+                                <li>Click the blue <strong>"Get API Key"</strong> button on the sidebar.</li>
+                                <li>Create an API key in a new project and copy it here.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications for UI feedback -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Script Libraries -->
+    <!-- Marked.js for Markdown Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <!-- Prism.js for Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <!-- Chart.js CDN for Analytics Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main JS Code -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
